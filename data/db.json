@@ -9,26 +9,20 @@
     {
       "id": "2",
       "name": "Printer",
-      "price": 3200,
-      "checked": "false"
+      "price": 1500,
+      "checked": false
     },
     {
       "id": "3",
-      "name": "Smartphone",
-      "price": 600,
-      "checked": "true"
+      "name": "Phone",
+      "price": 3000,
+      "checked": true
     },
     {
       "id": "4",
       "name": "Tablet",
-      "price": 1200,
-      "checked": "false"
-    },
-    {
-      "id": "5",
-      "name": "Monitor",
-      "price": 1500,
-      "checked": "true"
+      "price": 2000,
+      "checked": false
     }
   ]
 }
