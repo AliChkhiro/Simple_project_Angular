@@ -10,7 +10,7 @@
       "id": "2",
       "name": "Printer",
       "price": 1500,
-      "checked": false
+      "checked": true
     },
     {
       "id": "3",
@@ -23,6 +23,12 @@
       "name": "Tablet",
       "price": 2000,
       "checked": false
+    },
+    {
+      "id": "6",
+      "name": "Mouse",
+      "price": "150",
+      "checked": true
     }
   ]
 }

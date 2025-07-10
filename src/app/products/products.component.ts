@@ -12,9 +12,14 @@ import { Product } from '../model/product.model';
 })
 export class ProductsComponent implements OnInit {
 
-   products: Array<Product> = []
+
+   public products: Array<Product> = [];
     //products$!: Observable<Array<Product>>;
-  constructor(private productService:ProductService) {
+    public keyword: string = "";
+    totalPages: number = 0;
+    pageSize: number = 3;
+    currentPage: number = 1;
+  constructor(private productService:ProductService, private http: HttpClient) {
 
   }
   ngOnInit(): void {
@@ -32,10 +37,19 @@ export class ProductsComponent implements OnInit {
 
   getProducts(){
 
-    this.productService.getProducts()
+    this.productService.getProducts(this.currentPage, this.pageSize)
     .subscribe({
-        next: data => {
-          this.products = data;
+        next: (resp) => {
+          this.products = resp.body as Array<Product>;
+          let totalProducts:number = parseInt(resp.headers.get("X-Total-Count")!);
+          this.totalPages = Math.ceil(totalProducts / this.pageSize);
+          if(totalProducts % this.pageSize != 0)
+            this.totalPages++;
+          console.log("Total Pages: " + this.totalPages);
+
+
+
+
         },
         error: err => {
           console.log(err);
@@ -61,9 +75,25 @@ export class ProductsComponent implements OnInit {
     this.productService.deleteProduct(product).subscribe({
       next:value => {
         //this.getProducts();
-        this.products = this.products.filter(p=>p.id != product.id);
+        this.products = this.products.filter(p=>p.id!= product.id);
       }
     })
+}
+
+  /*searchProducts() {
+    this.productService.searchProducts(this.keyword)
+      .subscribe({
+        next: value => {
+          this.products = value;
+        }
+      });
+  }*/
+
+      searchProducts() {
+  const keywordLower = this.keyword.toLowerCase();
+  this.products = this.products.filter(product =>
+    product.name.toLowerCase().includes(keywordLower)
+  );
 }
 
 }
